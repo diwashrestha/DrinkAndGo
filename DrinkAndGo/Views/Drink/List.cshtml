@@ -7,9 +7,17 @@
 @{
     foreach(var drink in Model.Drinks)
     {
-    <div>
-        <h4>Drink Name: @drink.Name</h4>
-        <p>Price: @drink.Price.ToString("c")</p> <!-- c is for currency -->
+    <div class="col-sm-4 col-lg-4 col-md-4">
+        <div class="img-thumbnail">
+            <img src="@drink.ImageThumbnailUrl" alt="" />
+            <div class="caption">
+                <h3 class="float-right">@drink.Price.ToString("c")</h3>
+                <h3>
+                    <a>@drink.Name</a>
+                </h3>
+                <p>@drink.ShortDescription</p>
+            </div>
+        </div>
     </div>
     }
 }
