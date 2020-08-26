@@ -5,6 +5,7 @@ using DrinkAndGo.Data.Models;
 using DrinkAndGo.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +31,13 @@ namespace DrinkAndGo
 
             services.AddTransient<IDrinkRepository, DrinkRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sp => ShoppingCart.GetCart(sp));
+
             services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +46,7 @@ namespace DrinkAndGo
             app.UseDeveloperExceptionPage(); // used to render the exception during the development environment
             app.UseStatusCodePages(); // used to show the error page for tha http status code
             app.UseStaticFiles(); // used to add support the application for css, image and js
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{Id?}");
