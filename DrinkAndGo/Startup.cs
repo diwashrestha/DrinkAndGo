@@ -49,6 +49,7 @@ namespace DrinkAndGo
             app.UseSession();
             app.UseMvc(routes =>
             {
+                routes.MapRoute(name: "categoryFilter", template: "Drink/{action}/{category?}", defaults: new { Controller = "Drink", action = "List" });
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{Id?}");
             });  // add default for the mvc
             DbInitializer.Seed(serviceProvider);
