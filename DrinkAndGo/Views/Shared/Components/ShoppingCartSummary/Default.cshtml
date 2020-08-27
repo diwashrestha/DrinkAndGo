@@ -1,11 +1,7 @@
 ﻿@model ShoppingCartViewModel
 
-
-
-            <span class="glyphicon glyphicon-shopping-cart"></span>
-            <span id="cart-status">
-                Cart 
-                @Model.ShoppingCart.ShoppingCartItems.Count
-            </span>
-
-
+    <li>
+        <span id="cart-status">
+            @Model.ShoppingCart.ShoppingCartItems.Count
+        </span>
+    </li>

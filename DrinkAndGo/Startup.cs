@@ -2,6 +2,7 @@ using DrinkAndGo.Data;
 using DrinkAndGo.Data.Interfaces;
 using DrinkAndGo.Data.Mocks;
 using DrinkAndGo.Data.Models;
+using DrinkAndGo.Data.Repositories;
 using DrinkAndGo.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,7 @@ namespace DrinkAndGo
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));
 
+            services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IDrinkRepository, DrinkRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
 

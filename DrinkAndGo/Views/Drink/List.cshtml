@@ -1,12 +1,10 @@
 ﻿
-<div>
-    <h2> All drinks are shown here</h2>
-</div>
 
-<h2>@Model.CurrentCategory</h2>
-@{
-    foreach(Drink drink in Model.Drinks)
-    {
-        @Html.Partial("DrinksSummary", drink)
+<div class="row marginTop">
+    @{
+        foreach (Drink drink in Model.Drinks)
+        {
+            @Html.Partial("DrinksSummary", drink)
+        }
     }
-}
+    </div>
