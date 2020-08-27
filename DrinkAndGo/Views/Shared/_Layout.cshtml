@@ -24,17 +24,19 @@
             <a class="p-2 text-dark" href="#">Enterprise</a>
             <a class="p-2 text-dark" href="#">Support</a>
             <a class="p-2 text-dark" href="#">Pricing</a>
-            <ul class="nav navbar-nav">
-                @await Component.InvokeAsync("ShoppingCartSummary")
-            </ul>
+                    @await Component.InvokeAsync("ShoppingCartSummary")
+
+            </div>
         </nav>
-        <a class="btn btn-outline-primary" href="#">Sign up</a>
     </div>
     <div>
-        @RenderBody()
+        <div class="container">
+            @RenderBody()
+        </div>
+
         <hr />
         <footer>
-            <p><a target="_blank" href="https://github.com/diwashrestha">&copy; 2017 - Diwash Shrestha</a></p>
+            <p class="text-center"><a target="_blank" href="https://github.com/diwashrestha">&copy; 2020 - Diwash Shrestha</a></p>
         </footer>
     </div>
 </body>
