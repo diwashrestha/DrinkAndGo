@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DrinkAndGo.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DrinkAndGo.Controllers
 {
+    
     public class AccountController : Controller
     {
         // Usermanager class has all the api to manage users in database ie. create user, dlt user
@@ -21,6 +20,7 @@ namespace DrinkAndGo.Controllers
             _signInManager = signinManager;
         }
 
+        
         //  Login method redirect the user to login page/registration
         public IActionResult Login(string returnUrl)
         {
@@ -52,6 +52,39 @@ namespace DrinkAndGo.Controllers
             }
             ModelState.AddModelError("", "Username/password not found");
             return View(loginViewModel);
+        }
+
+        // returns register view
+        public  ActionResult Register()
+            {
+            return View();
+        }
+
+        // Handles logic of the registration
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(LoginViewModel loginViewModel)
+        {
+            if(ModelState.IsValid)
+            {
+                var user = new IdentityUser() { UserName = loginViewModel.UserName };
+                var result = await _userManager.CreateAsync(user, loginViewModel.Password);
+
+                if(result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View(loginViewModel);
+        }
+
+        // Logout method
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
