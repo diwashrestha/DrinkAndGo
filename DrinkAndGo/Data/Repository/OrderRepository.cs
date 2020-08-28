@@ -21,8 +21,9 @@ namespace DrinkAndGo.Data.Repositories
         {
             order.OrderPlaced = DateTime.Now;
 
+            // Save the orderid
             _appDbContext.Orders.Add(order);
-
+            _appDbContext.SaveChanges();
             var shoppingCartItems = _shoppingCart.ShoppingCartItems;
 
             foreach (var shoppingCartItem in shoppingCartItems)
@@ -36,8 +37,9 @@ namespace DrinkAndGo.Data.Repositories
                 };
 
                 _appDbContext.OrderDetails.Add(orderDetail);
-            }
 
+            }
+            // Saves the order details
             _appDbContext.SaveChanges();
         }
     }
